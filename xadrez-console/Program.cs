@@ -1,4 +1,5 @@
-﻿using System;
+﻿using board;
+using System;
 
 namespace xadrez_console
 {
@@ -6,7 +7,8 @@ namespace xadrez_console
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            Board board = new Board(8, 8);
+            Screen.PrintBoard(board);
         }
     }
 }
