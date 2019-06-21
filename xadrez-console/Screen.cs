@@ -13,7 +13,7 @@ namespace xadrez_console
                 {
                     if (board.Piece(i, j) == null)
                     {
-                        Console.Write("- ");
+                        Console.Write("-- ");
                     }
                     else
                     {
