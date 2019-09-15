@@ -13,19 +13,39 @@ namespace xadrez_console
                 Console.Write(8 - i + " ");
                 for (int j = 0; j < board.Columns; j++)
                 {
-                    if (board.Piece(i, j) == null)
-                    {
-                        Console.Write("-- ");
-                    }
-                    else
-                    {
-                        PrintPiece(board.Piece(i, j));
-                        Console.Write(" ");
-                    }
+                    PrintPiece(board.Piece(i, j));
                 }
                 Console.WriteLine();
             }
             Console.WriteLine("  A  B  C  D  E  F  G  H");
+        }
+
+        public static void PrintBoard(Board board, bool[,] possibleMovements)
+        {
+
+            ConsoleColor defaultBackground = Console.BackgroundColor;
+            ConsoleColor newBackground = ConsoleColor.DarkGray;
+
+            for (int i = 0; i < board.Rows; i++)
+            {
+                Console.Write(8 - i + " ");
+                for (int j = 0; j < board.Columns; j++)
+                {
+                    if(possibleMovements[i, j])
+                    {
+                        Console.BackgroundColor = newBackground;
+                    }
+                    else
+                    {
+                        Console.BackgroundColor = defaultBackground;
+                    }
+                    PrintPiece(board.Piece(i, j));
+                    Console.BackgroundColor = defaultBackground;
+                }
+                Console.WriteLine();
+            }
+            Console.WriteLine("  A  B  C  D  E  F  G  H");
+            Console.BackgroundColor = defaultBackground;
         }
 
         public static ChessPosition ReadChessPosition()
@@ -38,19 +58,27 @@ namespace xadrez_console
 
         public static void PrintPiece(Piece piece)
         {
-            if (piece.Color == Color.White)
+            if (piece == null)
             {
-                ConsoleColor aux = Console.ForegroundColor;
-                Console.ForegroundColor = ConsoleColor.White;
-                Console.Write(piece);
-                Console.ForegroundColor = aux;
+                Console.Write("-- ");
             }
             else
             {
-                ConsoleColor aux = Console.ForegroundColor;
-                Console.ForegroundColor = ConsoleColor.Red;
-                Console.Write(piece);
-                Console.ForegroundColor = aux;
+                if (piece.Color == Color.White)
+                {
+                    ConsoleColor aux = Console.ForegroundColor;
+                    Console.ForegroundColor = ConsoleColor.White;
+                    Console.Write(piece);
+                    Console.ForegroundColor = aux;
+                }
+                else
+                {
+                    ConsoleColor aux = Console.ForegroundColor;
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.Write(piece);
+                    Console.ForegroundColor = aux;
+                }
+                Console.Write(" ");
             }
         }
     }

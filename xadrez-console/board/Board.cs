@@ -17,7 +17,7 @@
 
         public Piece Piece(Position position) => Pieces[position.Row, position.Column];
 
-        public void AddPiece(Piece piece, Position position)
+        public void PlacePiece(Piece piece, Position position)
         {
             if (PieceExists(position))
             {
@@ -46,8 +46,8 @@
             return Piece(position) != null;
         }
 
-        public bool ValidPosition(Position position) => (position.Row < 0 || position.Row > Rows
-            || position.Column < 0 || position.Column > Columns) ? false : true;
+        public bool ValidPosition(Position position) => (position.Row >= 0 && position.Row < Rows
+            && position.Column >= 0 && position.Column < Columns);
 
         public void ValidatePosition(Position position)
         {

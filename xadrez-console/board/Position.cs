@@ -13,6 +13,11 @@ namespace board
             Column = column;
         }
 
+        public void setValues(int row, int column)
+        {
+            Row = row;
+            Column = column;
+        }
         public override string ToString() => Row + ", " + Column;
     }
 }
