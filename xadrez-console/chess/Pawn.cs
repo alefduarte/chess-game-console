@@ -31,7 +31,8 @@ namespace chess
 
                 // first up
                 pos.setValues(Position.Row - 2, Position.Column);
-                if (Board.ValidPosition(pos) && IsAvailable(pos) && QtyMoviments == 0) mat[pos.Row, pos.Column] = true;
+                if (Board.ValidPosition(pos) && IsAvailable(pos) && MoveCount == 0)
+                    mat[pos.Row, pos.Column] = true;
 
                 // eat upright
                 pos.setValues(Position.Row - 1, Position.Column - 1);
@@ -49,7 +50,8 @@ namespace chess
 
                 // first down
                 pos.setValues(Position.Row + 2, Position.Column);
-                if (Board.ValidPosition(pos) && IsAvailable(pos) && QtyMoviments == 0) mat[pos.Row, pos.Column] = true;
+                if (Board.ValidPosition(pos) && IsAvailable(pos) && MoveCount == 0)
+                    mat[pos.Row, pos.Column] = true;
 
                 // eat downright
                 pos.setValues(Position.Row + 1, Position.Column - 1);

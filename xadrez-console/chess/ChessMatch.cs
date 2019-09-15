@@ -115,7 +115,7 @@ namespace chess
             PlaceNewPiece('b', 1, new Knight(Board, Color.White));
             PlaceNewPiece('c', 1, new Bishop(Board, Color.White));
             PlaceNewPiece('d', 1, new Queen(Board, Color.White));
-            PlaceNewPiece('e', 1, new King(Board, Color.White));
+            PlaceNewPiece('e', 1, new King(Board, Color.White, this));
             PlaceNewPiece('f', 1, new Bishop(Board, Color.White));
             PlaceNewPiece('g', 1, new Knight(Board, Color.White));
             PlaceNewPiece('h', 1, new Rook(Board, Color.White));
@@ -132,7 +132,7 @@ namespace chess
             PlaceNewPiece('b', 8, new Knight(Board, Color.Black));
             PlaceNewPiece('c', 8, new Bishop(Board, Color.Black));
             PlaceNewPiece('d', 8, new Queen(Board, Color.Black));
-            PlaceNewPiece('e', 8, new King(Board, Color.Black));
+            PlaceNewPiece('e', 8, new King(Board, Color.Black, this));
             PlaceNewPiece('f', 8, new Bishop(Board, Color.Black));
             PlaceNewPiece('g', 8, new Knight(Board, Color.Black));
             PlaceNewPiece('h', 8, new Rook(Board, Color.Black));
@@ -154,6 +154,29 @@ namespace chess
             Board.PlacePiece(p, target);
             if (capturedPiece != null)
                 CapturedPieces.Add(capturedPiece);
+
+            // #specialMove kingside Castling
+            if (p is King && target.Column == source.Column + 2)
+            {
+                Position sourceR = new Position(source.Row, source.Column + 3);
+                Position targetR = new Position(source.Row, source.Column + 1);
+
+                Piece R = Board.RemovePiece(sourceR);
+                R.IncreaseMove();
+                Board.PlacePiece(R, targetR);
+            }
+
+            // #specialMove queenside Castling
+            if (p is King && target.Column == source.Column - 2)
+            {
+                Position sourceR = new Position(source.Row, source.Column - 4);
+                Position targetR = new Position(source.Row, source.Column - 1);
+
+                Piece R = Board.RemovePiece(sourceR);
+                R.IncreaseMove();
+                Board.PlacePiece(R, targetR);
+            }
+
             return capturedPiece;
         }
 
@@ -168,6 +191,27 @@ namespace chess
             }
             Board.PlacePiece(p, source);
 
+            // #specialMove kingside Castling
+            if (p is King && target.Column == source.Column + 2)
+            {
+                Position sourceR = new Position(source.Row, source.Column + 3);
+                Position targetR = new Position(source.Row, source.Column + 1);
+
+                Piece R = Board.RemovePiece(targetR);
+                R.DecreaseMove();
+                Board.PlacePiece(R, sourceR);
+            }
+
+            // #specialMove queenside Castling
+            if (p is King && target.Column == source.Column - 2)
+            {
+                Position sourceR = new Position(source.Row, source.Column - 4);
+                Position targetR = new Position(source.Row, source.Column - 1);
+
+                Piece R = Board.RemovePiece(targetR);
+                R.DecreaseMove();
+                Board.PlacePiece(R, sourceR);
+            }
         }
 
         public void Play(Position source, Position target)
