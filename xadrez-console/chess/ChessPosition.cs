@@ -16,7 +16,7 @@ namespace chess
 
         public Position ToPosition()
         {
-            return new Position(8 - Row, Column - 'A');
+            return new Position(8 - Row, char.ToUpper(Column) - 'A');
         }
 
         public override string ToString() => "" + Column + Row;

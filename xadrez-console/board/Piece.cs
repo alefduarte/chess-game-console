@@ -14,5 +14,10 @@
             Color = color;
             QtyMoviments = 0;
         }
+
+        public void IncreaseMovement()
+        {
+            QtyMoviments++;
+        }
     }
 }
