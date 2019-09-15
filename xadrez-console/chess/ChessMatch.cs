@@ -77,6 +77,32 @@ namespace chess
             }
             return false;
         }
+
+        public bool IsCheckmate(Color color)
+        {
+            if (!IsCheck(color)) return false;
+
+            foreach (Piece p in PiecesInGame(color))
+            {
+                bool[,] mat = p.PossibleMoves();
+                for (int i = 0; i < Board.Rows; i++)
+                {
+                    for (int j = 0; j < Board.Columns; j++)
+                    {
+                        if (mat[i, j])
+                        {
+                            Position source = p.Position;
+                            Position target = new Position(i, j);
+                            Piece capturedPiece = Move(source, target);
+                            bool testCheck = IsCheck(color);
+                            UndoMove(source, target, capturedPiece);
+                            if (!testCheck) return false;
+                        }
+                    }
+                }
+            }
+            return true;
+        }
         public void PlaceNewPiece(char column, int row, Piece piece)
         {
             Board.PlacePiece(piece, new ChessPosition(column, row).ToPosition());
@@ -85,10 +111,11 @@ namespace chess
 
         private void PlacePieces()
         {
-            PlaceNewPiece('C', 1, new King(Board, Color.White));
-            PlaceNewPiece('D', 1, new Rook(Board, Color.White));
-            PlaceNewPiece('C', 8, new King(Board, Color.Black));
-            PlaceNewPiece('D', 8, new Rook(Board, Color.Black));
+            PlaceNewPiece('D', 1, new King(Board, Color.White));
+            PlaceNewPiece('C', 1, new Rook(Board, Color.White));
+            PlaceNewPiece('H', 7, new Rook(Board, Color.White));
+            PlaceNewPiece('A', 8, new King(Board, Color.Black));
+            PlaceNewPiece('B', 8, new Rook(Board, Color.Black));
         }
 
         public Piece Move(Position source, Position target)
@@ -126,8 +153,14 @@ namespace chess
             }
 
             if (IsCheck(Opponent(CurrentPlayer))) { Check = true; } else { Check = false; };
-            Turn++;
-            ChangePlayer();
+
+            if (IsCheckmate(Opponent(CurrentPlayer))) { GameOver = true; }
+            else
+            {
+                Turn++;
+                ChangePlayer();
+            };
+
         }
 
         public void ValidateSourcePosition(Position pos)

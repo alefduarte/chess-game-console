@@ -15,10 +15,18 @@ namespace xadrez_console
 
             Console.WriteLine();
             Console.WriteLine("Turn: " + match.Turn);
+            if (!match.GameOver)
+            {
 
-            Console.WriteLine("Waiting Player: " + match.CurrentPlayer);
+                Console.WriteLine("Waiting Player: " + match.CurrentPlayer);
 
-            if (match.Check) Console.WriteLine("CHECK!");
+                if (match.Check) Console.WriteLine("CHECK!");
+            }
+            else
+            {
+                Console.WriteLine("CHECKMATE!");
+                Console.WriteLine(match.CurrentPlayer + " player won!");
+            }
         }
         public static void PrintCapturedieces(ChessMatch match)
         {
