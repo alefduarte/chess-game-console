@@ -255,6 +255,22 @@ namespace chess
                 throw new BoardException("You cannot move yourself into check");
             }
 
+            Piece p = Board.Piece(target);
+
+            // #specialMove Promotion
+            if(p is Pawn)
+            {
+                if((p.Color == Color.White && target.Row == 0) || (p.Color == Color.Black && target.Row == 7))
+                {
+                    p = Board.RemovePiece(target);
+                    Pieces.Remove(p);
+                    Piece queen = new Queen(Board, p.Color);
+                    Board.PlacePiece(queen, target);
+                    Pieces.Add(queen);
+                }
+            }
+
+
             if (IsCheck(Opponent(CurrentPlayer))) { Check = true; } else { Check = false; };
 
             if (IsCheckmate(Opponent(CurrentPlayer))) { GameOver = true; }
@@ -263,8 +279,6 @@ namespace chess
                 Turn++;
                 ChangePlayer();
             };
-
-            Piece p = Board.Piece(target);
 
             // #specialMove EnPassant
             if (p is Pawn && (target.Row == source.Row - 2 || target.Row == source.Row + 2))
