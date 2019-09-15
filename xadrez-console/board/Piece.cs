@@ -15,10 +15,10 @@
             QtyMoviments = 0;
         }
 
-        public void IncreaseMove()
-        {
-            QtyMoviments++;
-        }
+        public void IncreaseMove() => QtyMoviments++;
+
+
+        public void DecreaseMove() => QtyMoviments--;
 
         public bool AnyPossibleMove()
         {
