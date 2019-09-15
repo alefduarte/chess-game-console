@@ -14,23 +14,40 @@ namespace xadrez_console
 
                 while(!match.GameOver)
                 {
-                    Console.Clear();
-                    Screen.PrintBoard(match.Board);
+                    try
+                    {
+                        Console.Clear();
+                        Screen.PrintBoard(match.Board);
 
-                    Console.Write("Source: ");
-                    Position source = Screen.ReadChessPosition().ToPosition();
+                        Console.WriteLine();
+                        Console.WriteLine("Turn: " + match.Turn);
 
-                    bool[,] possiblePositions = match.Board.Piece(source).PossibleMoves();
+                        Console.WriteLine("Waiting Player: " + match.CurrentPlayer);
 
-                    Console.Clear();
-                    Screen.PrintBoard(match.Board, possiblePositions);
+                        Console.Write("Source: ");
+                        Position source = Screen.ReadChessPosition().ToPosition();
 
-                    Console.Write("Destination: ");
-                    Position destination = Screen.ReadChessPosition().ToPosition();
+                        match.ValidateSourcePosition(source);
 
-                    match.Move(source, destination);
+                        bool[,] possiblePositions = match.Board.Piece(source).PossibleMoves();
+
+                        Console.Clear();
+                        Screen.PrintBoard(match.Board, possiblePositions);
+
+                        Console.Write("Target: ");
+                        Position target = Screen.ReadChessPosition().ToPosition();
+
+                        match.ValidateTargetPosition(source, target);
+
+                        match.Play(source, target);
+                    }
+                    catch (BoardException e)
+                    {
+                        Console.WriteLine(e.Message);
+                        Console.ReadLine();
+                    }
+
                 }
-                Screen.PrintBoard(match.Board);
             }
             catch (BoardException e)
             {

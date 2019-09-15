@@ -15,9 +15,30 @@
             QtyMoviments = 0;
         }
 
-        public void IncreaseMovement()
+        public void IncreaseMove()
         {
             QtyMoviments++;
+        }
+
+        public bool AnyPossibleMove()
+        {
+            bool[,] mat = PossibleMoves();
+            for (int i=0; i<Board.Rows; i++)
+            {
+                for (int j=0; j<Board.Columns; j++)
+                {
+                    if(mat[i,j])
+                    {
+                        return true;
+                    }
+                }
+            }
+            return false;
+        }
+
+        public bool CanMoveTo(Position pos)
+        {
+            return PossibleMoves()[pos.Row, pos.Column];
         }
 
         public abstract bool[,] PossibleMoves();
