@@ -22,66 +22,42 @@ namespace chess
             // up
             pos.setValues(Position.Row - 1, Position.Column);
 
-            if(Board.ValidPosition(pos) && CanMove(pos))
-            {
-                mat[pos.Row, pos.Column] = true;
-            }
+            if (Board.ValidPosition(pos) && CanMove(pos)) mat[pos.Row, pos.Column] = true;
 
             // upright
             pos.setValues(Position.Row - 1, Position.Column + 1);
 
-            if (Board.ValidPosition(pos) && CanMove(pos))
-            {
-                mat[pos.Row, pos.Column] = true;
-            }
+            if (Board.ValidPosition(pos) && CanMove(pos)) mat[pos.Row, pos.Column] = true;
 
             // right
             pos.setValues(Position.Row, Position.Column + 1);
 
-            if (Board.ValidPosition(pos) && CanMove(pos))
-            {
-                mat[pos.Row, pos.Column] = true;
-            }
+            if (Board.ValidPosition(pos) && CanMove(pos)) mat[pos.Row, pos.Column] = true;
 
             // downright
             pos.setValues(Position.Row + 1, Position.Column + 1);
 
-            if (Board.ValidPosition(pos) && CanMove(pos))
-            {
-                mat[pos.Row, pos.Column] = true;
-            }
+            if (Board.ValidPosition(pos) && CanMove(pos)) mat[pos.Row, pos.Column] = true;
 
             // down
             pos.setValues(Position.Row + 1, Position.Column);
 
-            if (Board.ValidPosition(pos) && CanMove(pos))
-            {
-                mat[pos.Row, pos.Column] = true;
-            }
+            if (Board.ValidPosition(pos) && CanMove(pos)) mat[pos.Row, pos.Column] = true;
 
             // downleft
             pos.setValues(Position.Row + 1, Position.Column - 1);
 
-            if (Board.ValidPosition(pos) && CanMove(pos))
-            {
-                mat[pos.Row, pos.Column] = true;
-            }
+            if (Board.ValidPosition(pos) && CanMove(pos)) mat[pos.Row, pos.Column] = true;
 
             // left
             pos.setValues(Position.Row, Position.Column - 1);
 
-            if (Board.ValidPosition(pos) && CanMove(pos))
-            {
-                mat[pos.Row, pos.Column] = true;
-            }
+            if (Board.ValidPosition(pos) && CanMove(pos)) mat[pos.Row, pos.Column] = true;
 
             // upleft
             pos.setValues(Position.Row - 1, Position.Column - 1);
 
-            if (Board.ValidPosition(pos) && CanMove(pos))
-            {
-                mat[pos.Row, pos.Column] = true;
-            }
+            if (Board.ValidPosition(pos) && CanMove(pos)) mat[pos.Row, pos.Column] = true;
             return mat;
         }
 

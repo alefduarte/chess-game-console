@@ -43,7 +43,7 @@ namespace chess
                 pos.Row += 1;
             }
 
-            // down
+            // right
             pos.setValues(Position.Row, Position.Column + 1);
             while (Board.ValidPosition(pos) && CanMove(pos))
             {
