@@ -183,7 +183,7 @@ namespace chess
 
         public void ValidateTargetPosition(Position source, Position target)
         {
-            if (!Board.Piece(source).CanMoveTo(target))
+            if (!Board.Piece(source).PossibleMove(target))
             {
                 throw new BoardException("Invalid target position!");
             }
